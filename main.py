@@ -1,7 +1,10 @@
+import os
 import asyncio
 from playwright.async_api import async_playwright
 import aiohttp
-import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 async def download_mp3(url, path):
     max_retries = 5
@@ -23,6 +26,7 @@ async def download_mp3(url, path):
 
 async def process_term(term, translation, output_folder):
     file_path = os.path.join(output_folder, f'{translation}.mp3')
+
     if os.path.isfile(file_path):
         print(f"MP3 file already exists for {translation}, skipping download.")
         return
@@ -52,6 +56,7 @@ async def process_term(term, translation, output_folder):
             audio_src = await page.get_attribute('//*[@id="progessResults"]/div[2]/audio/source', 'src')
 
             os.makedirs(output_folder, exist_ok=True)
+
             await download_mp3(audio_src, file_path)
             print(f"Downloaded MP3 file to {file_path}")
 
@@ -61,7 +66,6 @@ async def process_term(term, translation, output_folder):
             await browser.close()
 
 async def main():
-    # Mapping of Hindi terms to their English translations
     term_mappings = {
         "सौ": "Hundred",
         "हजार": "Thousand",
