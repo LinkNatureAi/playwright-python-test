@@ -5,3 +5,6 @@ services:
     dockerfilePath: Dockerfile
     buildCommand: ""
     startCommand: "python main.py"
+    envVars:
+      - key: PORT
+        value: 4000  # Or any port you prefer
