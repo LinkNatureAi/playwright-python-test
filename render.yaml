@@ -7,4 +7,4 @@ services:
     startCommand: "python main.py"
     envVars:
       - key: PORT
-        value: 4000  # Or any port you prefer
+        value: 8000  # Or any port you prefer
