@@ -3,8 +3,15 @@ import asyncio
 from playwright.async_api import async_playwright
 import aiohttp
 from dotenv import load_dotenv
+from flask import Flask
 
 load_dotenv()
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "MP3 Generation Service is Running"
 
 async def download_mp3(url, path):
     max_retries = 5
@@ -134,4 +141,6 @@ async def main():
             print(f"Error creating MP3 for {term}: {str(e)}")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    app.run(host='0.0.0.0', port=8000)
