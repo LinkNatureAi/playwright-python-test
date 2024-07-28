@@ -1,3 +1,4 @@
 aiohttp
 playwright
 python-dotenv
+Flask
